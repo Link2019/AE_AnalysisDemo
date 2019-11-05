@@ -36,7 +36,7 @@ namespace AE_AnalysisDemo
         private void OpenGDB()
         {
             IWorkspaceFactory workspaceFactory = new AccessWorkspaceFactoryClass();//改动
-
+          
             IWorkspace workspace = workspaceFactory.OpenFromFile(Global.GdbPath, 0) as IWorkspace;
             Global.pWorkSpace = workspace;
         }
@@ -49,11 +49,15 @@ namespace AE_AnalysisDemo
         {
             this.Cursor = Cursors.WaitCursor;
             Global.GlobalTopology = CreateTopology(Global.pWorkSpace, "Road_Analysis", "Topology_Dataset");
-            //打开拓扑数据集
-            Global.GlobalTopology = OpenToplogyFromFeatureWorkspace((IFeatureWorkspace)Global.pWorkSpace, "Road_Analysis", "Topology_Dataset"); //???
-            MessageBox.Show("已经存在拓扑数据集");
-            this.Cursor = Cursors.Default;
-            return;
+            if(Flag)
+            {
+                //打开拓扑数据集
+                Global.GlobalTopology = OpenToplogyFromFeatureWorkspace((IFeatureWorkspace)Global.pWorkSpace, "Road_Analysis", "Topology_Dataset"); //???
+                MessageBox.Show("已经存在拓扑数据集");
+                this.Cursor = Cursors.Default;
+                return;
+            }
+           
         }
 
         
