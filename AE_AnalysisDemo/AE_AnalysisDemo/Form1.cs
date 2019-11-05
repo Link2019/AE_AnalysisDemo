@@ -119,6 +119,10 @@ namespace AE_AnalysisDemo
             axMapControl1.Refresh();
         }
 
-        
+        private void 拓扑分析ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Topology frmTopo = new Topology();
+            frmTopo.Show();
+        }
     }
 }
