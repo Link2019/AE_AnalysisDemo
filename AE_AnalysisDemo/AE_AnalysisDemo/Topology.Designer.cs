@@ -91,6 +91,7 @@
             this.btnDisplayTopo.TabIndex = 0;
             this.btnDisplayTopo.Text = "显示拓扑";
             this.btnDisplayTopo.UseVisualStyleBackColor = true;
+            this.btnDisplayTopo.Click += new System.EventHandler(this.btnDisplayTopo_Click);
             // 
             // btnCreateTopo
             // 

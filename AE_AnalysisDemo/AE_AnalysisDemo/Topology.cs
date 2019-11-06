@@ -11,13 +11,14 @@ using System.Windows.Forms;
 using ESRI.ArcGIS.DataSourcesFile;
 using ESRI.ArcGIS.DataSourcesGDB;
 using ESRI.ArcGIS.Geometry;
+using ESRI.ArcGIS.Carto;
 
 namespace AE_AnalysisDemo
 {
     public partial class Topology : Form
     {
         /// <summary>
-        /// 判断拓扑是否创建成功，true表示成功，false表示失败 
+        /// 判断拓扑是否创建成功，true表示存在拓扑数据集，false表示拓扑数据集为空
         /// </summary>
         private bool Flag = false;
 
@@ -48,16 +49,23 @@ namespace AE_AnalysisDemo
         /// <param name="e"></param>
         private void btnCreateTopo_Click(object sender, EventArgs e)
         {
+            //设置指针处于等待状
             this.Cursor = Cursors.WaitCursor;
+            //创建拓扑数据集（前提是要素集内没有数据集）
             Global.GlobalTopology = create_topology(Global.pWorkSpace, "Road_Analysis", "Topology_Dataset");
+            //如果Flag为true则打开
             if (Flag)
             {
                 //打开拓扑数据集
-                Global.GlobalTopology = OpenToplogyFromFeatureWorkspace((IFeatureWorkspace)Global.pWorkSpace, "Road_Analysis", "Topology_Dataset"); //???
+                Global.GlobalTopology = OpenToplogyFromFeatureWorkspace((IFeatureWorkspace)Global.pWorkSpace, "Road_Analysis", "Topology_Dataset"); 
+                //Flag为true表示已经存在拓扑数据集
                 MessageBox.Show("已经存在拓扑数据集");
+                //设置指针为默认状态
                 this.Cursor = Cursors.Default;
+                //返回
                 return;
             }
+            //创建要素类
             IFeatureClass pTempFt = null;
             //向拓扑数据集中添加拓扑元素，可以添加多个
             AddSingleElement(Global.GlobalTopology, "Road_Analysis", "南宁路网", out pTempFt);
@@ -173,23 +181,55 @@ namespace AE_AnalysisDemo
         /// <returns></returns>
         public ITopology create_topology(IWorkspace myWSp, string FtDSName, string TopologyName)
         {
-            IFeatureWorkspace pFtWsp = myWSp as IFeatureWorkspace;
-            IFeatureDataset myFDS = pFtWsp.OpenFeatureDataset(FtDSName);
-            IFeatureClassContainer myFCContainer = myFDS as IFeatureClassContainer;
-            ITopologyContainer myTopologyContainer = myFDS as ITopologyContainer;
+            //实例化拓扑为null
             ITopology myTopology = null;
             try
             {
+                //将工作空间强转成要素工作空间
+                IFeatureWorkspace pFtWsp = myWSp as IFeatureWorkspace;
+                //通过要素工作空间打开名字为"FtDSName"的要素数据集
+                IFeatureDataset myFDS = pFtWsp.OpenFeatureDataset(FtDSName);
+                //将要素数据集放在要素类容器中
+                IFeatureClassContainer myFCContainer = myFDS as IFeatureClassContainer;
+                //将要素类容器强转成拓扑容器
+                ITopologyContainer myTopologyContainer = myFDS as ITopologyContainer;
+                //通过拓扑容器创建一个新的拓扑
                 myTopology = myTopologyContainer.CreateTopology(TopologyName, myTopologyContainer.DefaultClusterTolerance, -1, "");
-                //myTopology = myTopologyContainer.CreateTopology(TopologyName, myTopologyContainer.DefaultClusterTolerance, -1, "");
             }
             catch (Exception ee)
             {
+                //MessageBox.Show(ee.Message);
+                //如果拓扑已经存在，则将Flag变为true
                 Flag = true;
+                //返回null
                 return null;
             }
+            //返回创建的myTopology
             return myTopology;
 
+        }
+
+        private void btnDisplayTopo_Click(object sender, EventArgs e)
+        {
+            //防止没有拓扑而创建图层对象
+            if(Flag)
+            {
+                //设置指针处于等待状
+                this.Cursor = Cursors.WaitCursor;
+                //新建一个拓扑图层
+                ITopologyLayer pTpLayer = new TopologyLayerClass();
+                //将Global.GlobalTopology赋值给当前的拓扑图层的拓扑
+                pTpLayer.Topology = Global.GlobalTopology;
+                //拓扑图层强转成图层
+                ILayer pLayer = (ILayer)pTpLayer;
+                //将图层名字命名为"Topology_Dataset"
+                pLayer.Name = "Topology_Dataset";
+                //将图层加到axMapControl1上
+                axMapControl1.AddLayer(pLayer);
+                //设置指针为默认状态
+                this.Cursor = Cursors.Default;
+            }
+            
         }
     }
 }

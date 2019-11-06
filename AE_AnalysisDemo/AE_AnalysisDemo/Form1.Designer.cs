@@ -33,6 +33,7 @@
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.缓冲区分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.拓扑分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.axToolbarControl1 = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -41,9 +42,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.axLicenseControl1 = new ESRI.ArcGIS.Controls.AxLicenseControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.拓扑分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.axMapControl1 = new ESRI.ArcGIS.Controls.AxMapControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.axPageLayoutControl1 = new ESRI.ArcGIS.Controls.AxPageLayoutControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).BeginInit();
@@ -56,8 +56,8 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).BeginInit();
-            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
+            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axPageLayoutControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,6 +92,13 @@
             this.缓冲区分析ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
             this.缓冲区分析ToolStripMenuItem.Text = "缓冲区分析";
             this.缓冲区分析ToolStripMenuItem.Click += new System.EventHandler(this.缓冲区分析ToolStripMenuItem_Click);
+            // 
+            // 拓扑分析ToolStripMenuItem
+            // 
+            this.拓扑分析ToolStripMenuItem.Name = "拓扑分析ToolStripMenuItem";
+            this.拓扑分析ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.拓扑分析ToolStripMenuItem.Text = "拓扑分析";
+            this.拓扑分析ToolStripMenuItem.Click += new System.EventHandler(this.拓扑分析ToolStripMenuItem_Click);
             // 
             // axToolbarControl1
             // 
@@ -177,6 +184,15 @@
             this.axLicenseControl1.Size = new System.Drawing.Size(32, 32);
             this.axLicenseControl1.TabIndex = 1;
             // 
+            // axMapControl1
+            // 
+            this.axMapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.axMapControl1.Location = new System.Drawing.Point(3, 3);
+            this.axMapControl1.Name = "axMapControl1";
+            this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
+            this.axMapControl1.Size = new System.Drawing.Size(549, 343);
+            this.axMapControl1.TabIndex = 0;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.axPageLayoutControl1);
@@ -187,22 +203,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "布局视图";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // 拓扑分析ToolStripMenuItem
-            // 
-            this.拓扑分析ToolStripMenuItem.Name = "拓扑分析ToolStripMenuItem";
-            this.拓扑分析ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.拓扑分析ToolStripMenuItem.Text = "拓扑分析";
-            this.拓扑分析ToolStripMenuItem.Click += new System.EventHandler(this.拓扑分析ToolStripMenuItem_Click);
-            // 
-            // axMapControl1
-            // 
-            this.axMapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.axMapControl1.Location = new System.Drawing.Point(3, 3);
-            this.axMapControl1.Name = "axMapControl1";
-            this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
-            this.axMapControl1.Size = new System.Drawing.Size(549, 343);
-            this.axMapControl1.TabIndex = 0;
             // 
             // axPageLayoutControl1
             // 
@@ -239,8 +239,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).EndInit();
-            this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).EndInit();
+            this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axPageLayoutControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
