@@ -18,7 +18,7 @@ namespace AE_AnalysisDemo
     public partial class Topology : Form
     {
         /// <summary>
-        /// 判断拓扑是否创建成功，true表示存在拓扑数据集，false表示拓扑数据集为空
+        /// 判断拓扑数据集是否存在，true表示存在拓扑数据集，false表示拓扑数据集为空
         /// </summary>
         private bool Flag = false;
 
@@ -73,7 +73,7 @@ namespace AE_AnalysisDemo
             AddRuleToTopology(Global.GlobalTopology, esriTopologyRuleType.esriTRTLineNoIntersection, "NoIntersection", pTempFt);
             //Global.GlobalTopology将强转为IGeoDataset获得Extent
             IGeoDataset GDS = Global.GlobalTopology as IGeoDataset;
-            //调用自定义方法添加拓扑规则
+            //验证拓扑错误
             ValidateTopology(Global.GlobalTopology, GDS.Extent);
             MessageBox.Show("拓扑数据集创建成功！");
             this.Cursor = Cursors.Default;
@@ -208,7 +208,11 @@ namespace AE_AnalysisDemo
             return myTopology;
 
         }
-
+        /// <summary>
+        /// 显示拓扑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDisplayTopo_Click(object sender, EventArgs e)
         {
             //防止没有拓扑而创建图层对象
